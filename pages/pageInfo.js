@@ -1,12 +1,8 @@
-import Quotes from './Quotes';
-import RandomQuotes from './RandomQuotes';
-import About from './About';
-import Author from './Author';
+import Quotes from './Quote/Quotes';
+import RandomQuotes from './RandomQuote/RandomQuotes';
+import About from './About/About';
 import AuthorStack from '../navigators/AuthorStack'
-import SavedQuotes from './SavedQuotes';
 import SavedQuoteStack from '../navigators/SavedQuoteStack';
-
-// no need to define textLight and textDark in event page object
 
 const pages = [
   {
@@ -18,7 +14,7 @@ const pages = [
     color2: '#F3F1ED',
     dark: '#0E0D0B',
     dark1: '#1C1C1C',
-    netRequired: true
+    netRequired: true,
   },
   {
     name: 'Quotes',
@@ -29,7 +25,7 @@ const pages = [
     color2: '#FBC6AE',
     dark: '#9C431C',
     dark1: '#692505',
-    netRequired: true
+    netRequired: true,
   },
   {
     name: 'Saved Quotes',

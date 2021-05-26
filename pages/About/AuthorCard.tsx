@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import { Animated, Pressable, StyleSheet, Text, View, } from 'react-native'
-import { Heading } from '../global/styles'
-import { base } from '../global/theme'
-import { authorProps, CARD_HEIGHT, SPACING } from '../pages/Author'
+import { Heading } from '../../global/styles'
+import { base } from '../../global/theme'
+import { authorProps, CARD_HEIGHT, SPACING } from '../Author/Author'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 

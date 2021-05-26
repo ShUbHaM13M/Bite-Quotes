@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { View, StatusBar } from 'react-native'
-import DeleteButton from '../components/buttons/DeleteButton'
-import ShareButton from '../components/buttons/ShareButton'
-import { SavedQuotesContext } from '../context/SavedQuotesContext'
-import { AuthorText, Card, Heading } from '../global/styles'
-import { base } from '../global/theme'
+import DeleteButton from '../../components/buttons/DeleteButton'
+import ShareButton from '../../components/buttons/ShareButton'
+import { SavedQuotesContext } from '../../context/SavedQuotesContext'
+import { AuthorText, Card, Heading } from '../../global/styles'
+import { base } from '../../global/theme'
 
 const ExpandedSaveQuote = ({ navigation, route }) => {
 
@@ -26,7 +26,7 @@ const ExpandedSaveQuote = ({ navigation, route }) => {
         flex: 1,
         justifyContent: 'space-between'
       }}>
-      <Heading marginBottom='20px'>{quote.content}</Heading>
+      <Heading marginBottom={20}>{quote.content}</Heading>
       <View style={{ alignSelf: 'flex-end' }}>
         <AuthorText>- {quote.author}</AuthorText>
       </View>

@@ -10,16 +10,15 @@ interface Props {
   setTags?: React.Dispatch<React.SetStateAction<(string)[] | undefined>>
   toggleRender: React.Dispatch<React.SetStateAction<boolean>>
   data: Array<QuoteProp>,
-  fetchMore: () => void
+  fetchMore: () => void,
+  backgroundColor: string
 }
 
-const TinderSwipe = ({ data, fetchMore, render, toggleRender, setTags }: Props) => {
+const TinderSwipe = ({ data, fetchMore, render, toggleRender, setTags, backgroundColor }: Props) => {
 
   const useSwiper = useRef(null).current
   const handleOnSwipeLeft = () => useSwiper.swipeLeft()
   const handleOnSwipeRight = () => useSwiper.swipeRight()
-
-  const backgroundColor = 'white'
 
   return (
     <View style={{

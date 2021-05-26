@@ -25,7 +25,7 @@ export const savedQuoteColors = {
 }
 export const authorColors = {
   color: '#B1F98A',
-  color2: '#F3F1ED',
+  color2: '#D6FBAE',
   dark: '#478306',
   dark2: '#396905' 
 }

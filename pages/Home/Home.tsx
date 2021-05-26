@@ -1,14 +1,12 @@
 import { useNetInfo } from '@react-native-community/netinfo';
-import React, { useEffect, useRef, useState } from 'react';
-import { Animated, FlatList, View, Dimensions, StyleSheet, Text } from 'react-native';
-import { interpolate, interpolateColor, interpolateColors, useAnimatedStyle } from 'react-native-reanimated';
-import BrowseCard from '../components/BrowseCard';
-import ConnectionError from '../components/ConnectionError';
-import Header from '../components/Header';
-import { useTheme } from '../context/ThemeContext';
-import globalStyles, { PaddedContainer } from '../global/styles';
-import { base, dark, primary } from '../global/theme';
-import pages from './pageInfo';
+import React, { useRef } from 'react';
+import { Animated, View, Dimensions, StyleSheet } from 'react-native';
+import BrowseCard from './BrowseCard';
+import ConnectionError from '../../components/ConnectionError';
+import Header from '../../components/Header';
+import { useTheme } from '../../context/ThemeContext';
+import { base, dark, primary } from '../../global/theme';
+import pages from '../pageInfo';
 
 const { width, height } = Dimensions.get('window')
 const CARD_WIDTH = width * 0.8
@@ -18,6 +16,7 @@ const CARD_HEIGHT = height * 0.6
 const Home = ({ navigation }: any) => {
 
   const { currentTheme }: any = useTheme();
+  const textColor = currentTheme === 'dark' ? primary : dark
 
   const { isConnected, isInternetReachable } = useNetInfo()
 
@@ -38,7 +37,9 @@ const Home = ({ navigation }: any) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header title='Bite Quotes' textColor={currentTheme?.name === 'light' ? dark : primary} />
+      <View style={{ elevation: 2, zIndex: 2 }}>
+        <Header title='Bite Quotes' textColor={textColor} />
+      </View>
       <View style={StyleSheet.absoluteFillObject}>
         {renderPages.map((page, index) => {
           const inputRange = [
@@ -51,7 +52,7 @@ const Home = ({ navigation }: any) => {
             outputRange: [0, 1, 0]
           })
           return <Animated.View key={index} style={[
-            { backgroundColor: currentTheme?.name === 'light' ? page.color2 : page.dark1, opacity },
+            { backgroundColor: currentTheme === 'light' ? page.color2 : page.dark1, opacity },
             StyleSheet.absoluteFillObject,
           ]} />
         })}
@@ -95,8 +96,8 @@ const Home = ({ navigation }: any) => {
           }}>
             <BrowseCard
               item={item}
-              textColor={currentTheme?.name === 'light' ? dark : primary}
-              color={currentTheme?.name === 'light' ? item.color : item.dark}
+              textColor={textColor}
+              color={currentTheme === 'light' ? item.color : item.dark}
               onPress={onCardPress} />
           </Animated.View>
         }}

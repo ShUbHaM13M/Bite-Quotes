@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, Text, Pressable, StyleSheet, Linking, ScrollView } from 'react-native'
-import { base, primary } from '../global/theme'
+import { base, primary } from '../../global/theme'
 import styled from 'styled-components'
 
-const AuthorInfo = ({ navigation, route }) => {
+const AuthorInfo = ({ navigation, route }: any) => {
 
   const { author } = route.params
 

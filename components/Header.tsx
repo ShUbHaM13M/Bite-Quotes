@@ -1,9 +1,10 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import { Heading } from '../global/styles';
 import styled from 'styled-components';
 import ThemeIcon from './ThemeIcon';
+import { dark, primary } from '../global/theme';
 
 interface Props {
   title: string;
@@ -17,7 +18,6 @@ const HeaderContainer = styled.View`
   flex-direction: row;
   align-items: center;
   padding: ${HEADER_HEIGHT}px 30px;
-  elevation: 2;
   z-index: 2;
 `;
 
@@ -28,13 +28,19 @@ const Header = ({ title, textColor = "white" }: Props) => {
     <>
       <StatusBar
         barStyle={
-          currentTheme?.name === 'light' ? 'dark-content' : 'light-content'
+          currentTheme === 'light' ? 'dark-content' : 'light-content'
         }
       />
-      <HeaderContainer>
-        <Heading color={textColor} >{title}</Heading>
-        <ThemeIcon />
-      </HeaderContainer>
+      <View style={{
+        elevation: 2,
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(0, 0, 0, 0.01)'
+      }}>
+        <HeaderContainer>
+          <Heading color={textColor} >{title}</Heading>
+          <ThemeIcon />
+        </HeaderContainer>
+      </View>
     </>
   );
 };

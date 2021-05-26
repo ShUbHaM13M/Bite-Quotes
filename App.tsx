@@ -7,36 +7,49 @@
  */
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import React, { useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 import ThemeProvider, { useTheme } from './context/ThemeContext';
-import globalStyles from './global/styles';
 import RootStack from './navigators/RootNavigator';
-import Header from './components/Header';
+import AnimatedSplash from 'react-native-animated-splash-screen'
+import SplashScreen from 'react-native-splash-screen'
 
 const App = () => {
 
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
 
   return (
-    <SafeAreaView style={[globalStyles.fullHeight]}>
-      <ThemeProvider>
-        <NavigationContainer>
-          <CustomStatusBar />
-          <RootStack />
-        </NavigationContainer>
-      </ThemeProvider>
-    </SafeAreaView>
+    <AnimatedSplash
+      isLoaded={loaded}
+      logoImage={require("./assets/images/SplashLogo.png")}
+      backgroundColor="#DFE2D1"
+      logoHeight={80}
+      logoWidth={80}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ThemeProvider>
+          <NavigationContainer>
+            <CustomStatusBar hidden={!loaded} />
+            <RootStack setLoaded={setLoaded} />
+          </NavigationContainer>
+        </ThemeProvider>
+      </SafeAreaView>
+    </AnimatedSplash>
   );
 };
 
-const CustomStatusBar = () => {
+const CustomStatusBar = ({ hidden }: { hidden: boolean }) => {
 
   const { currentTheme }: any = useTheme()
 
   return <StatusBar
+    hidden={hidden}
     backgroundColor={currentTheme?.value?.backgroundColor}
     barStyle={
-      currentTheme?.name === 'light' ? 'dark-content' : 'light-content'
+      currentTheme?.currentTheme === 'light' ? 'dark-content' : 'light-content'
     }
   />
 }

@@ -14,7 +14,7 @@ const SavedQuotesProvider = ({ children }: Props) => {
 
   useEffect(() => {
     getSavedQuotesFromStorage()
-      .then(data => {
+      .then((data: any) => {
         if (data)
           setSavedQuotes(data)
       })

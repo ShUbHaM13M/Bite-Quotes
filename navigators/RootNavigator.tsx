@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { createStackNavigator, StackHeaderProps, StackNavigationOptions } from '@react-navigation/stack';
+import React, { SetStateAction, useEffect } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import pages from '../pages/pageInfo';
-import Home from '../pages/Home';
+import Home from '../pages/Home/Home';
 import Header from '../components/Header';
-import { useTheme } from '../context/ThemeContext';
-import { useNetInfo } from '@react-native-community/netinfo';
-import SavedQuotes from '../pages/SavedQuotes';
-import TagPage from '../pages/TagPage';
+import TagPage from '../pages/TagPage/TagPage';
 
 const Stack = createStackNavigator();
 
-const headerOptions = (): StackNavigationOptions => ({
-    headerLeft: () => null,
-    header: ({ scene }: StackHeaderProps) => {
-        const routeName = scene.route.name === 'Home' ? 'Bite Quotes' : scene.route.name
-        return <Header title={routeName} />
-    },
-})
+interface RootStackProps {
+    setLoaded: React.Dispatch<SetStateAction<boolean>>
+}
 
-const RootStack = () => {
+const RootStack = ({ setLoaded }: RootStackProps) => {
+
+    useEffect(() => {
+        setTimeout(() => setLoaded(true), 500)
+    }, [])
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Home" component={Home} options={
-                headerOptions()
-            } />
+            <Stack.Screen name="Home" component={Home} options={{
+                headerLeft: () => null,
+                header: () => (<Header title="Bite Quotes" />)
+            }} />
             {pages.map((page, index) => {
                 return <Stack.Screen
                     key={index}

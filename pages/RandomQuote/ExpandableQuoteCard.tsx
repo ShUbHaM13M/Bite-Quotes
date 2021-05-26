@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ScrollView, Dimensions, Pressable, StatusBar } from 'react-native'
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
-import { useTheme } from '../context/ThemeContext'
-import { AuthorText, Card, Heading } from '../global/styles'
-import { base, dark } from '../global/theme'
-import { SavedQuotesContext } from '../context/SavedQuotesContext'
-import LikeButton from './buttons/LikeButton'
-import ShareButton from './buttons/ShareButton'
-import { CARD_HEIGHT, CARD_WIDTH, QuoteProp } from './QuoteCard'
-import { getSavedQuotesFromStorage } from '../utils/useStorage'
+import { useTheme } from '../../context/ThemeContext'
+import { AuthorText, Card, Heading } from '../../global/styles'
+import { base, dark, primary } from '../../global/theme'
+import { SavedQuotesContext } from '../../context/SavedQuotesContext'
+import LikeButton from '../../components/buttons/LikeButton'
+import ShareButton from '../../components/buttons/ShareButton'
+import { CARD_HEIGHT, CARD_WIDTH, QuoteProp } from '../../components/QuoteCard'
+import { getSavedQuotesFromStorage } from '../../utils/useStorage'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
@@ -21,7 +21,7 @@ const ExpandableQuoteCard = (quote: QuoteProp) => {
   const scaleDown = useSharedValue(0)
   const [cardFullView, setCardFullView] = useState(false)
   const [isScaleDown, setIsScaleDown] = useState(false)
-  const [statusbarColor, setStatusbarColor] = useState(currentTheme?.value.backgroundColor)
+  const [statusbarColor, setStatusbarColor] = useState(currentTheme === 'dark' ? dark : primary)
 
   const styles = useAnimatedStyle(() => {
     const width = interpolate(scale.value, [0, 1], [CARD_WIDTH, sWidth])
@@ -69,7 +69,7 @@ const ExpandableQuoteCard = (quote: QuoteProp) => {
     })
     setStatusbarColor(cardFullView
       ? base.accent2
-      : currentTheme?.value.backgroundColor
+      : currentTheme === 'dark' ? dark : primary
     )
   }, [cardFullView])
 
@@ -92,7 +92,7 @@ const ExpandableQuoteCard = (quote: QuoteProp) => {
           contentContainerStyle={{ flexGrow: 1 }}
           style={{ marginTop: 10, width: '100%' }}>
           <Animated.View style={[headingContainerStyles]}>
-            <Heading flex={1} textCenter size='26px' color={dark}>{quote.content}</Heading>
+            <Heading textCenter size={26} color={dark}>{quote.content}</Heading>
           </Animated.View>
         </ScrollView>
         <AuthorText>- {quote.author}</AuthorText>

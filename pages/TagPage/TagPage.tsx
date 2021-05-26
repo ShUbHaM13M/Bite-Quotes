@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { View, Text, ActivityIndicator } from 'react-native'
 import { Easing, useSharedValue, withTiming } from 'react-native-reanimated'
-import Modal from '../components/Modal'
-import { QuoteProp } from '../components/QuoteCard'
-import TagsList from '../components/TagsList'
-import TinderSwipe from '../components/TinderSwipe'
-import SavedQuotesProvider from '../context/SavedQuotesContext'
-import { Heading } from '../global/styles'
-import { base } from '../global/theme'
-import rootUrl from '../rootUrl'
+import Modal from './Modal'
+import { QuoteProp } from '../../components/QuoteCard'
+import TagsList from '../../components/TagsList'
+import TinderSwipe from '../../components/TinderSwipe'
+import SavedQuotesProvider from '../../context/SavedQuotesContext'
+import { useTheme } from '../../context/ThemeContext'
+import { Heading } from '../../global/styles'
+import { base } from '../../global/theme'
+import rootUrl from '../../rootUrl'
+import useFetch from '../../utils/useFetch'
 
 const animationConfig = {
   duration: 350,
@@ -52,27 +54,22 @@ const TagPage = ({ route }: any) => {
     return tagList
   }
 
-  const url = `${rootUrl}quotes?skip=${skipCount}&tags=${tagList.length !== 0
+  const url = `quotes?skip=${skipCount}&tags=${tagList.length !== 0
     ? tagList.join(',')
     : 'friendship'}`
 
-  const fetchQuotes = useCallback(async () => {
-    try {
-      const res = await fetch(url)
-      const data = await res.json()
-      if (res.ok) {
+  const fetchQuotes = useCallback(() => {
+    useFetch(url)
+      .then(data => {
         if (data && data.results) {
           const { results } = data
           setLastIndex(data.lastItemIndex)
           setQuotes(results)
+          setLoading(false)
+          return
         }
-        setLoading(false)
-        return
-      }
-      console.log('not found')
-    } catch (err) {
-      console.log(err.message)
-    }
+      })
+      .catch(err => console.log(err))
   }, [url])
 
   function fetchMore() {
@@ -99,7 +96,11 @@ const TagPage = ({ route }: any) => {
         alignItems: 'center',
         backgroundColor: 'white'
       }}>
-        <Heading size='30px' marginBottom='20px' marginTop='20px' textCenter>Quotes</Heading>
+        <Heading
+          size={30}
+          marginTop={20}
+          textCenter
+          marginBottom={20}>Quotes</Heading>
         <View style={{
           flex: 1,
           alignSelf: 'stretch',
@@ -116,6 +117,7 @@ const TagPage = ({ route }: any) => {
           </View>
           {!loading && quotes &&
             <TinderSwipe
+              backgroundColor='white'
               render={showCards}
               toggleRender={setShowCards}
               data={quotes}

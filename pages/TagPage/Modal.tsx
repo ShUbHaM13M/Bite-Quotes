@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { View, Text, Dimensions, Pressable, StyleSheet } from 'react-native'
-import { base, dark, primary } from '../global/theme';
+import { base, dark, primary } from '../../global/theme';
 import styled from 'styled-components'
 import { FlatList } from 'react-native-gesture-handler';
-import { Heading } from '../global/styles';
+import { Heading } from '../../global/styles';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { height, width } = Dimensions.get('window')
-const data = require('../global/tags.json')
+const data = require('../../global/tags.json')
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 const Modal = ({ setShowModal, tags, toggleTagFromList, showModal }: Props) => {
@@ -48,8 +48,8 @@ const Modal = ({ setShowModal, tags, toggleTagFromList, showModal }: Props) => {
           backgroundColor: primary
         }]}>
         <Heading
-          marginBottom='20px'
-          marginTop='20px'
+          marginBottom={20}
+          marginTop={20}
           color={`${dark}`}
           textCenter>Tags</Heading>
         <FlatList

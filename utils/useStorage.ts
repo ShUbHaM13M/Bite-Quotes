@@ -8,44 +8,21 @@ export function clearStorage() {
   return MMKV.clearStore()
 }
 
-export const useStorage = (key: LiteralUnion<"currentTheme" | "savedQuotes">) => {
-  const [value, setValue] = useMMKVStorage(key, MMKV);
-  return [value, setValue];
-};
-
-function typeCheck(value: any) {
-  const return_value = Object.prototype.toString.call(value);
-  const type = return_value.substring(
-    return_value.indexOf(" ") + 1,
-    return_value.indexOf("]"));
-
-  return type.toLowerCase();
-}
-
-
-export async function getFromStorage(key: LiteralUnion<"currentTheme" | "savedQuotes">, type: LiteralUnion<"Object" | "Array">) {
+export async function getThemeFromStorage() {
   try {
-    let data;
-    if (type === 'Object') {
-      data = await MMKV.getMapAsync(key);
-    } else if (type === 'Array') {
-      data = await MMKV.getArrayAsync(key);
-    }
-    return data;
+    const data = await MMKV.getStringAsync('theme')
+    return data
   } catch (err) {
     console.log(err)
   }
 }
 
-export async function setToStorage(key: LiteralUnion<"currentTheme" | "savedQuotes">, data: any) {
+export async function saveThemeToStorage(theme: 'light' | 'dark') {
   try {
-    if (typeCheck(data) === 'object') {
-      await MMKV.setMapAsync(key, data);
-    } else if (typeCheck(data) === 'array') {
-      await MMKV.setArrayAsync(key, data);
-    }
+    const added = await MMKV.setStringAsync('theme', theme)
+    return added
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
 }
 

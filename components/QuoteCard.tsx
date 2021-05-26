@@ -21,7 +21,7 @@ export interface QuoteProp {
 
 const QuoteCard = (quote: QuoteProp) => {
 
-  const { saveQuote } = useContext(SavedQuotesContext)
+  const { saveQuote }: any = useContext(SavedQuotesContext)
 
   function onLikeButtonPressed() {
     saveQuote(quote)
@@ -37,8 +37,8 @@ const QuoteCard = (quote: QuoteProp) => {
         borderColor={base.accent}
       >
         <ScrollView
-          style={{ marginTop: 30, width: '100%', }}>
-          <Heading size='26px' color={dark}>{quote.content}</Heading>
+          style={{ marginTop: 30, width: '100%' }}>
+          <Heading size={26} color={dark}>{quote.content}</Heading>
         </ScrollView>
         <AuthorText>- {quote.author}</AuthorText>
         <View style={styles.actionStyles}>

@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { QuoteProp } from '../components/QuoteCard';
-import TagsList from '../components/TagsList';
-import { Heading } from '../global/styles';
-import { base, quoteColors } from '../global/theme';
-import rootUrl from '../rootUrl';
-import { useTheme } from '../context/ThemeContext';
-import SavedQuotesProvider from '../context/SavedQuotesContext';
-import TinderSwipe from '../components/TinderSwipe';
+import { QuoteProp } from '../../components/QuoteCard';
+import TagsList from '../../components/TagsList';
+import { Heading } from '../../global/styles';
+import { base, dark, primary, quoteColors } from '../../global/theme';
+import rootUrl from '../../rootUrl';
+import { useTheme } from '../../context/ThemeContext';
+import SavedQuotesProvider from '../../context/SavedQuotesContext';
+import TinderSwipe from '../../components/TinderSwipe';
+import useFetch from '../../utils/useFetch';
 
-const Quotes = ({ navigation, route }) => {
+const Quotes = ({ navigation, route }: any) => {
 
   const [authorSlug, setAuthorSlug] = useState<string>(
     route?.params?.authorSlug
@@ -17,7 +18,14 @@ const Quotes = ({ navigation, route }) => {
       : '')
 
   const { currentTheme }: any = useTheme();
-  const backgroundColor = currentTheme?.name === 'light' ? quoteColors.color : quoteColors.dark
+  const backgroundColor = currentTheme === 'dark'
+    ? quoteColors.dark2
+    : quoteColors.color2
+  const headerColor = currentTheme === 'dark'
+    ? quoteColors.dark
+    : quoteColors.color
+  const textColor = currentTheme === 'dark' ? primary : dark
+
   const [quotes, setQuotes] = useState<Array<QuoteProp>>([])
   const [tags, setTags] = useState<Array<string> | undefined>([])
   const [loading, setLoading] = useState<boolean>(true)
@@ -27,13 +35,11 @@ const Quotes = ({ navigation, route }) => {
   const [fetchedCount, setFetchedCount] = useState<number>(0)
   const [totalCount, setTotalCount] = useState<number>(0)
 
-  const url = `${rootUrl}quotes?author=${authorSlug}&skip=${skipCount}`
+  const url = `quotes?author=${authorSlug}&skip=${skipCount}`
 
-  const fetchQuotes = useCallback(async () => {
-    try {
-      const res = await fetch(url)
-      const data = await res.json()
-      if (res.ok) {
+  const fetchQuotes = useCallback(() => {
+    useFetch(url)
+      .then(data => {
         if (data && data.results) {
           const { results } = data
           setLastIndex(data.lastItemIndex)
@@ -41,14 +47,10 @@ const Quotes = ({ navigation, route }) => {
           setTotalCount(data.totalCount)
           setQuotes(results)
           setTags(results[0].tags)
+          setLoading(false)
         }
-        setLoading(false)
-        return
-      }
-      console.log('not found')
-    } catch (err) {
-      console.log(err.message)
-    }
+      })
+      .catch(err => console.log(err))
   }, [url])
 
   function fetchMore() {
@@ -75,9 +77,22 @@ const Quotes = ({ navigation, route }) => {
         flex: 1,
         justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor
       }}>
-        <Heading size='30px' marginBottom='20px' marginTop='20px' textCenter>Quotes</Heading>
+        <View style={{
+          elevation: 2,
+          backgroundColor: headerColor,
+          width: '100%',
+          flex: loading ? 1 : 0,
+          justifyContent: 'center'
+        }} >
+          <Heading
+            size={30}
+            marginTop={20}
+            textCenter
+            color={textColor}
+            marginBottom={20}>Quotes</Heading>
+        </View>
         {!loading && quotes &&
           <View style={{
             flex: 1,
@@ -85,6 +100,7 @@ const Quotes = ({ navigation, route }) => {
             alignItems: 'center',
           }}>
             <View style={{
+              marginTop: 20,
               paddingHorizontal: 10,
               alignSelf: 'stretch'
             }}>
@@ -94,6 +110,7 @@ const Quotes = ({ navigation, route }) => {
             </View>
             <TinderSwipe
               setTags={setTags}
+              backgroundColor={backgroundColor}
               render={showCards}
               toggleRender={setShowCards}
               data={quotes}
@@ -101,8 +118,20 @@ const Quotes = ({ navigation, route }) => {
           </View>
         }
         {loading &&
-          <ActivityIndicator size='large' color={base.accent} />}
-      </View >
+          <View style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            height: '100%',
+            width: '100%',
+            backgroundColor: 'red'
+          }}>
+            <ActivityIndicator size='large' color={base.accent} />
+          </View>
+        }
+      </View>
     </SavedQuotesProvider>
   );
 };

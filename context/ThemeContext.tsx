@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext, ReactNode } from 'react';
-import theme from '../global/theme';
 
-import { setToStorage, getFromStorage } from '../utils/useStorage';
+import { getThemeFromStorage, saveThemeToStorage } from '../utils/useStorage';
 
 const ThemeContext = React.createContext(null);
 
@@ -13,19 +12,21 @@ interface Props {
   children: ReactNode;
 }
 
+type Theme = 'light' | 'dark'
+
 export default function ThemeProvider({ children }: Props) {
-  const [currentTheme, setCurrentTheme] = useState<undefined | Object | null>(theme.light);
+  const [currentTheme, setCurrentTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    getFromStorage('currentTheme', 'Object')
+    getThemeFromStorage()
       .then(data => {
-        if (data !== null || data !== undefined)
-          setCurrentTheme(data);
+        if (data)
+          setCurrentTheme(data)
       })
   }, []);
 
   useEffect(() => {
-    setToStorage('currentTheme', currentTheme);
+    saveThemeToStorage(currentTheme);
   }, [currentTheme]);
 
   const value = {

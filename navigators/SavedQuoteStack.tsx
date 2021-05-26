@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from "@react-navigation/stack";
-import SavedQuotes from '../pages/SavedQuotes';
-import ExpandedSaveQuote from '../pages/ExpandedSaveQuote';
+import SavedQuotes from '../pages/SavedQuote/SavedQuotes';
+import ExpandedSaveQuote from '../pages/SavedQuote/ExpandedSaveQuote';
 import SavedQuotesProvider from '../context/SavedQuotesContext';
 
 const Stack = createStackNavigator()

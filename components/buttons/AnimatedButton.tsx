@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Pressable, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 import { base } from '../../global/theme'
+import globalStyles from '../../global/styles'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
@@ -32,7 +33,7 @@ const AnimatedButton = ({ children, onPress, extraStyles }: Props) => {
         val.value = withSpring(0)
       }}
       style={[
-        styles.roundedButton,
+        globalStyles.roundedButton,
         animatedStyles, {
           backgroundColor: base.accent
         }, extraStyles]}>
@@ -40,15 +41,5 @@ const AnimatedButton = ({ children, onPress, extraStyles }: Props) => {
     </AnimatedPressable>
   )
 }
-
-const styles = StyleSheet.create({
-  roundedButton: {
-    borderRadius: 100,
-    height: 60,
-    width: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-})
 
 export default AnimatedButton

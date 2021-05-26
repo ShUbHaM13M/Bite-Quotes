@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import Authors from '../pages/Author'
-import AuthorInfo from '../pages/AuthorInfo'
+import Authors from '../pages/Author/Author'
+import AuthorInfo from '../pages/Author/AuthorInfo'
 
 const Stack = createStackNavigator()
 
