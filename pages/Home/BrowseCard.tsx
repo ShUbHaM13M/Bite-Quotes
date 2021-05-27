@@ -46,7 +46,8 @@ const BrowseCard: React.FC<props> = ({ item, onPress, color, textColor, }) => {
                     <Text style={{
                         textAlign: 'center',
                         fontSize: 20,
-                        color: textColor
+                        color: textColor,
+                        fontFamily: 'Poppins-Light'
                     }}>
                         {item.description}
                     </Text>

@@ -14,8 +14,16 @@ const ConnectionError = () => {
       height: 80,
       backgroundColor: dark
     }}>
-      <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>
-        <Text style={{ color: base.accent, fontSize: 20 }}>Connection Error </Text>{"\n"}
+      <Text style={{
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'center',
+        fontFamily: 'Poppins-Light'
+      }}>
+        <Text style={{
+          color: base.accent,
+          fontSize: 20, fontFamily: 'Poppins-Regular'
+        }}>Connection Error </Text>{"\n"}
         You can still browse saved quotes.
       </Text>
     </View>

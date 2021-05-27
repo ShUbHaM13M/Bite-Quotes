@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Pressable, StyleSheet, Linking, ScrollView } from 'react-native'
 import { base, primary } from '../../global/theme'
 import styled from 'styled-components'
+import { Link } from '../../global/styles'
 
 const AuthorInfo = ({ navigation, route }: any) => {
 
@@ -72,13 +73,6 @@ const Bio = styled.View`
 
 const BioText = styled.Text`
   font-size: 22px;
-`
-
-const Link = styled.Text`
-  font-size: 20px;
-  text-align: center;
-  color: #2847a4;
-  text-decoration: underline;
 `
 
 const styles = StyleSheet.create({

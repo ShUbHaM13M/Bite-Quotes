@@ -10,10 +10,19 @@ export const Heading = (props) => <Text style={{
   marginTop: props.marginTop || 0,
   marginBottom: props.marginBottom || 0,
   padding: props.padding || 0,
-  paddingLeft: props.paddingLeft || 0
+  paddingLeft: props.paddingLeft || 0,
+  fontFamily: 'Poppins-Medium'
 }}>
   {props.children}
 </Text>
+
+export const Link = styled.Text`
+  font-size: 20px;
+  text-align: center;
+  color: #2847a4;
+  text-decoration: underline;
+  font-family: Poppins-Light;
+`
 
 export const Card = styled.View`
   flex: ${props => props.flex || 'none'};
@@ -40,7 +49,8 @@ export const AuthorText = ({children}) => <Text style={{
       fontSize: 18,
       fontWeight: '100',
       width: '100%',
-      textAlign: 'right'
+      textAlign: 'right',
+      fontFamily: 'Poppins-Regular'
   }}>{children}</Text>
 
 const styles = StyleSheet.create({

@@ -60,7 +60,7 @@ const TinderSwipe = ({ data, fetchMore, render, toggleRender, setTags, backgroun
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-            <Heading>Fetch More Quotes ?</Heading>
+            <Heading>More Quotes ?</Heading>
             <RefreshButton onPress={() => {
               fetchMore()
             }} />

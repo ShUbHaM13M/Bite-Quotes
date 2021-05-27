@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Animated, Pressable, StyleSheet, Text, View, } from 'react-native'
 import { Heading } from '../../global/styles'
 import { base } from '../../global/theme'
-import { authorProps, CARD_HEIGHT, SPACING } from '../Author/Author'
+import { authorProps, CARD_HEIGHT, SPACING } from './Author'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
@@ -45,7 +45,7 @@ export class AuthorCard extends PureComponent {
           width: '100%',
           marginVertical: 10
         }} />
-        <Text style={{ fontSize: 18 }}>{this.item.description}</Text>
+        <Text style={{ fontSize: 18, fontFamily: 'Poppins-Light' }}>{this.item.description}</Text>
       </AnimatedPressable>
     )
   }

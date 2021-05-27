@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, View, Text, Pressable, StyleSheet, ActivityIndicator } from 'react-native'
-import AuthorCard from '../About/AuthorCard'
+import AuthorCard from './AuthorCard'
 import { useTheme } from '../../context/ThemeContext'
 import { Heading } from '../../global/styles'
 import { authorColors, base, dark, primary } from '../../global/theme'

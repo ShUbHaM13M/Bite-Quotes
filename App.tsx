@@ -13,6 +13,7 @@ import ThemeProvider, { useTheme } from './context/ThemeContext';
 import RootStack from './navigators/RootNavigator';
 import AnimatedSplash from 'react-native-animated-splash-screen'
 import SplashScreen from 'react-native-splash-screen'
+import { dark, primary } from './global/theme';
 
 const App = () => {
 
@@ -47,9 +48,9 @@ const CustomStatusBar = ({ hidden }: { hidden: boolean }) => {
 
   return <StatusBar
     hidden={hidden}
-    backgroundColor={currentTheme?.value?.backgroundColor}
+    backgroundColor={currentTheme === 'light' ? primary : dark}
     barStyle={
-      currentTheme?.currentTheme === 'light' ? 'dark-content' : 'light-content'
+      currentTheme === 'light' ? 'dark-content' : 'light-content'
     }
   />
 }

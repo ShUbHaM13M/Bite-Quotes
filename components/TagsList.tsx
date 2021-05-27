@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   textStyle: {
     color: '#fff',
     fontSize: 16,
+    fontFamily: 'Poppins-Regular'
   }
 })
 
