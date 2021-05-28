@@ -18,9 +18,11 @@ import { dark, primary } from './global/theme';
 const App = () => {
 
   const [loaded, setLoaded] = useState(false)
+  const isHermes = () => !!global.HermesInternal;
 
   useEffect(() => {
     SplashScreen.hide()
+    console.log(isHermes())
   }, [])
 
   return (
