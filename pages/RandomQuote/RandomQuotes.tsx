@@ -8,7 +8,7 @@ import TagsList from '../../components/TagsList'
 import SavedQuotesProvider from '../../context/SavedQuotesContext'
 import { useTheme } from '../../context/ThemeContext'
 import { Heading } from '../../global/styles'
-import { dark, primary, randomQuoteColors } from '../../global/theme'
+import { base, dark, primary, randomQuoteColors } from '../../global/theme'
 import useFetch from '../../utils/useFetch'
 
 const RandomQuotes = ({ navigation }: any) => {
@@ -66,7 +66,6 @@ const RandomQuotes = ({ navigation }: any) => {
           width: '100%',
           justifyContent: 'center',
           alignSelf: 'stretch',
-          elevation: 2
         }} >
           <Heading
             size={30}

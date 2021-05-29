@@ -36,7 +36,7 @@ const ExpandableQuoteCard = (quote: QuoteProp) => {
       backgroundColor: base.accent2,
       borderRadius,
       marginVertical: 20,
-      transform: [{ scale: scaleAmount }]
+      transform: [{ scale: scaleAmount }],
     }
   })
 
