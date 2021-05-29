@@ -21,12 +21,8 @@ const Author = ({ navigation }) => {
 
   const { currentTheme }: any = useTheme()
   const backgroundColor = currentTheme === 'dark'
-    ? authorColors.dark2
-    : authorColors.color2
+    ? dark : primary
   const textColor = currentTheme === 'dark' ? primary : dark
-  const headerColor = currentTheme === 'dark'
-    ? authorColors.dark
-    : authorColors.color
 
   const [authors, setAuthors] = useState<Array<authorProps>>([])
   const [lastItemIndex, setLastItemIndex] = useState(0)
@@ -64,13 +60,13 @@ const Author = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor }}>
-      <View style={{ elevation: 2, backgroundColor: headerColor }}>
+      <View style={{ elevation: 2, backgroundColor }}>
         <Heading
           size={30}
-          marginTop={20}
+          marginTop={40}
           textCenter
           color={textColor}
-          marginBottom={20}>Authors</Heading>
+          marginBottom={10}>Authors</Heading>
       </View>
       <Animated.FlatList
         style={styles.listStyle}

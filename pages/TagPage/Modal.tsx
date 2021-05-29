@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { FlatList } from 'react-native-gesture-handler';
 import { Heading } from '../../global/styles';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useTheme } from '../../context/ThemeContext';
 
 interface Props {
   showModal: boolean
@@ -34,6 +35,10 @@ const Modal = ({ setShowModal, tags, toggleTagFromList, showModal }: Props) => {
     anim.value = withTiming(showModal ? 0 : 1)
   }, [showModal])
 
+  const { currentTheme }: any = useTheme()
+  const backgroundColor = currentTheme === 'dark' ? dark : primary
+  const textColor = currentTheme === "dark" ? primary : dark
+
   return (
     <AnimatedPressable
       style={[styles.container, animatedStyles]}
@@ -45,12 +50,12 @@ const Modal = ({ setShowModal, tags, toggleTagFromList, showModal }: Props) => {
           alignSelf: 'stretch',
           alignItems: 'stretch',
           borderRadius: 20,
-          backgroundColor: primary
+          backgroundColor
         }]}>
         <Heading
           marginBottom={20}
           marginTop={20}
-          color={`${dark}`}
+          color={textColor}
           textCenter>Tags</Heading>
         <FlatList
           contentContainerStyle={{

@@ -12,11 +12,7 @@ const SavedQuotes = ({ navigation }) => {
   const { quotes }: Array<QuoteProp> | any = useContext(SavedQuotesContext)
   const { currentTheme }: any = useTheme()
   const backgroundColor = currentTheme === 'dark'
-    ? savedQuoteColors.dark2
-    : savedQuoteColors.color2
-  const headerColor = currentTheme === 'dark'
-    ? savedQuoteColors.dark
-    : savedQuoteColors.color
+    ? dark : primary
   const textColor = currentTheme === 'dark' ? primary : dark
 
   const [scroll, setScroll] = useState<boolean>(true)
@@ -34,15 +30,13 @@ const SavedQuotes = ({ navigation }) => {
     }}>
       <View
         style={styles.header}>
-        {/* <BackButton navigation={navigation} /> */}
-        {/* Adding a backbutton letter */}
-        <View style={{ elevation: 2, backgroundColor: headerColor, width: '100%' }}>
+        <View style={{ elevation: 2, backgroundColor, width: '100%' }}>
           <Heading
             textCenter
-            marginTop={20}
+            marginTop={40}
             size={30}
             color={textColor}
-            marginBottom={20}>Saved Quotes</Heading>
+            marginBottom={10}>Saved Quotes</Heading>
         </View>
       </View>
       <FlatList
@@ -75,7 +69,8 @@ const SavedQuotes = ({ navigation }) => {
 const styles = StyleSheet.create({
   textStyles: {
     fontSize: 22,
-    flex: 1
+    flex: 1,
+    fontFamily: 'Poppins-Regular'
   },
   header: {
     elevation: 2,

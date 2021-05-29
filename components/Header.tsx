@@ -33,8 +33,7 @@ const Header = ({ title, textColor = "white" }: Props) => {
       />
       <View style={{
         elevation: 2,
-        borderBottomWidth: 1,
-        borderBottomColor: 'rgba(0, 0, 0, 0.01)'
+        marginTop: 20
       }}>
         <HeaderContainer>
           <Heading color={textColor} >{title}</Heading>

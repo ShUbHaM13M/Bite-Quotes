@@ -1,27 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { ActivityIndicator, View } from 'react-native'
-import Animated, { Easing, Extrapolate, interpolate, runOnJS, runOnUI, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { View } from 'react-native'
+import Animated, { Easing, Extrapolate, interpolate, runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import RandomButton from '../../components/buttons/RandomButton'
 import ExpandableQuoteCard from './ExpandableQuoteCard'
 import { QuoteProp } from '../../components/QuoteCard'
 import TagsList from '../../components/TagsList'
-import Toaster from '../../components/Toaster'
 import SavedQuotesProvider from '../../context/SavedQuotesContext'
 import { useTheme } from '../../context/ThemeContext'
 import { Heading } from '../../global/styles'
-import { base, dark, primary, randomQuoteColors } from '../../global/theme'
-import rootUrl from '../../rootUrl'
+import { dark, primary, randomQuoteColors } from '../../global/theme'
 import useFetch from '../../utils/useFetch'
 
 const RandomQuotes = ({ navigation }: any) => {
 
   const { currentTheme }: any = useTheme()
   const backgroundColor = currentTheme === 'dark'
-    ? randomQuoteColors.dark2
-    : randomQuoteColors.color2
-  const headerColor = currentTheme === 'dark'
-    ? randomQuoteColors.dark
-    : randomQuoteColors.color
+    ? dark : primary
   const textColor = currentTheme === 'dark' ? primary : dark
 
   const [quote, setQuote] = useState<QuoteProp | null>()
@@ -68,17 +62,18 @@ const RandomQuotes = ({ navigation }: any) => {
         backgroundColor
       }}>
         <View style={{
-          backgroundColor: headerColor,
+          backgroundColor,
           width: '100%',
           justifyContent: 'center',
-          alignSelf: 'stretch'
+          alignSelf: 'stretch',
+          elevation: 2
         }} >
           <Heading
             size={30}
-            marginTop={20}
+            marginTop={40}
             textCenter
             color={textColor}
-            marginBottom={20}>Random Quotes</Heading>
+            marginBottom={10}>Random Quotes</Heading>
         </View>
 
         {!loading && quote &&
@@ -87,7 +82,7 @@ const RandomQuotes = ({ navigation }: any) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-            <View style={{ width: '100%' }}>
+            <View style={{ width: '100%', marginTop: 10 }}>
               <TagsList navigation={navigation} tags={quote ? quote.tags : []} />
             </View>
             <Animated.View style={animatedStyle}>

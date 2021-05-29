@@ -23,6 +23,7 @@ const ExpandedSaveQuote = ({ navigation, route }) => {
       style={{
         padding: 20,
         marginVertical: 20,
+        marginTop: 50,
         flex: 1,
         justifyContent: 'space-between'
       }}>

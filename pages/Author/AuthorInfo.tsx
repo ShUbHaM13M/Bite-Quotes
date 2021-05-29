@@ -9,7 +9,7 @@ const AuthorInfo = ({ navigation, route }: any) => {
   const { author } = route.params
 
   return (
-    <View style={{ flex: 1, paddingHorizontal: 20 }}>
+    <View style={{ flex: 1, paddingHorizontal: 20, marginTop: 20 }}>
       <Name>{author.name}</Name>
       <Description >{author.description}</Description>
       <Bio>
@@ -17,8 +17,7 @@ const AuthorInfo = ({ navigation, route }: any) => {
           <BioText>{author.bio}</BioText>
           <Pressable
             style={({ pressed }) => [{
-              marginVertical: 20,
-              // borderWidth: 1,
+              marginVertical: 10,
               padding: 10,
               opacity: pressed ? 0.6 : 1,
               borderRadius: 10
@@ -39,7 +38,8 @@ const AuthorInfo = ({ navigation, route }: any) => {
         }}>
         <Text style={{
           fontSize: 16,
-          color: primary
+          color: primary,
+          fontFamily: 'Poppins-Regular'
         }}>Quotes - {author.quoteCount}</Text>
       </Pressable>
 
@@ -54,12 +54,14 @@ const Name = styled.Text`
   text-align: center;
   border-bottom-width: 1px;
   padding-bottom: 20px;
+  font-family: Poppins-Medium;
 `
 
 const Description = styled.Text`
   text-align: center;
   font-size: 20px;
   font-weight: 200;
+  font-family: Poppins-Regular;
 `
 
 const Bio = styled.View`
@@ -73,6 +75,7 @@ const Bio = styled.View`
 
 const BioText = styled.Text`
   font-size: 22px;
+  font-family: Poppins-Regular;
 `
 
 const styles = StyleSheet.create({

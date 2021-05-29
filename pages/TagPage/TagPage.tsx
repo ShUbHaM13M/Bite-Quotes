@@ -8,7 +8,7 @@ import TinderSwipe from '../../components/TinderSwipe'
 import SavedQuotesProvider from '../../context/SavedQuotesContext'
 import { useTheme } from '../../context/ThemeContext'
 import { Heading } from '../../global/styles'
-import { base } from '../../global/theme'
+import { base, dark, primary } from '../../global/theme'
 import rootUrl from '../../rootUrl'
 import useFetch from '../../utils/useFetch'
 
@@ -20,6 +20,7 @@ const animationConfig = {
 const TagPage = ({ route }: any) => {
 
   const { tag } = route.params
+  const { currentTheme }: any = useTheme()
   const [tagList, setTagList] = useState<Array<string>>([tag])
   const [showModal, setShowModal] = useState<boolean>(false)
   const [quotes, setQuotes] = useState<Array<QuoteProp>>([])
@@ -88,36 +89,45 @@ const TagPage = ({ route }: any) => {
     }
   }, [url])
 
+  const backgroundColor = currentTheme === "dark" ? dark : primary
+  const textColor = currentTheme === "dark" ? primary : dark
+
   return (
     <SavedQuotesProvider>
       <View style={{
         flex: 1,
         justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor
       }}>
-        <Heading
-          size={30}
-          marginTop={20}
-          textCenter
-          marginBottom={20}>Quotes</Heading>
+        <View style={{
+          elevation: 2,
+          backgroundColor,
+          width: '100%',
+          flex: loading ? 1 : 0,
+          justifyContent: 'center'
+        }} >
+          <Heading
+            size={30}
+            marginTop={40}
+            color={textColor}
+            textCenter
+            marginBottom={20}>Quotes</Heading>
+        </View>
         <View style={{
           flex: 1,
           alignSelf: 'stretch',
+          marginTop: 10
         }}>
-          <View style={{
-            paddingHorizontal: 10,
-          }}>
-            <TagsList
-              editable
-              tags={tagList}
-              setTags={setTagList}
-              removeFromTagList={removeFromTagList}
-              showFilterModal={setShowModal} />
-          </View>
+          <TagsList
+            editable
+            tags={tagList}
+            setTags={setTagList}
+            removeFromTagList={removeFromTagList}
+            showFilterModal={setShowModal} />
           {!loading && quotes &&
             <TinderSwipe
-              backgroundColor='white'
+              backgroundColor={backgroundColor}
               render={showCards}
               toggleRender={setShowCards}
               data={quotes}

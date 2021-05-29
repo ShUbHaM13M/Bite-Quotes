@@ -9,11 +9,8 @@ const About = () => {
 
   const { currentTheme }: any = useTheme()
   const backgroundColor = currentTheme === 'dark'
-    ? aboutColors.dark2
-    : aboutColors.color2
-  const headerColor = currentTheme === 'dark'
-    ? aboutColors.dark
-    : aboutColors.color
+    ? dark
+    : primary
   const textColor = currentTheme === 'dark' ? primary : dark
 
   const gitUrl = "https://github.com/lukePeavey/quotable"
@@ -42,31 +39,47 @@ const About = () => {
       flex: 1,
       backgroundColor
     }}>
-      <View style={[styles.header, { backgroundColor: headerColor }]}>
+      <View style={[styles.header, { backgroundColor }]}>
         <Heading
           textCenter
-          marginTop={20}
+          marginTop={40}
           size={30}
           color={textColor}
-          marginBottom={20}>About</Heading>
+          marginBottom={10}>About</Heading>
       </View>
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, alignItems: 'center', padding: 20 }}>
-          <View style={[
-            styles.imageContainer,
-            { backgroundColor: currentTheme === 'light' ? primary : dark }
-          ]}>
-            <Image style={styles.image} source={require('../../assets/images/SplashLogo.png')} />
+        <View style={{
+          flex: 1,
+          alignItems: 'center',
+          padding: 20,
+        }}>
+          <View style={{
+            flexDirection: 'row'
+
+          }}>
+
+            <View style={[
+              styles.imageContainer,
+              {
+                backgroundColor: currentTheme === 'light' ? primary : dark,
+              }
+            ]}>
+              <Image style={styles.image} source={require('../../assets/images/SplashLogo.png')} />
+            </View>
+            <View style={{
+              marginLeft: 20,
+            }}>
+              <Text style={{
+                fontSize: 24,
+                color: textColor,
+                marginTop: 10,
+                fontFamily: 'Poppins-Medium'
+              }}>Bite Quotes</Text>
+              <Text style={[styles.copyrightText, { color: textColor }]}>
+                Copyright © 2021, v-{app_version}
+              </Text>
+            </View>
           </View>
-          <Text style={{
-            fontSize: 24,
-            color: textColor,
-            marginTop: 10,
-            fontFamily: 'Poppins-Medium'
-          }}>Bite Quotes</Text>
-          <Text style={styles.copyrightText}>
-            Copyright © 2021, v-{app_version}
-          </Text>
           <ScrollView style={{
             flex: 1,
             alignSelf: 'stretch',
@@ -90,13 +103,15 @@ const About = () => {
               fontSize: 22,
               marginTop: 10
             }]}>
-              🔷 Getting the quotes from: {'\n'}
+              🔷 Getting the quotes from:
             </Text>
             <Link
               onPress={() => Linking.openURL(gitUrl)}>
               {gitUrl}
             </Link>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{
+              paddingVertical: 20,
+            }}>
               <TouchableOpacity style={[
                 styles.button,
                 { backgroundColor: base.accent2 }
@@ -112,7 +127,14 @@ const About = () => {
             </View>
           </ScrollView>
         </View>
-        <Text style={[styles.footer]}>
+        <Text style={[
+          styles.footer,
+          {
+            color: textColor,
+            borderColor: currentTheme === 'dark'
+              ? 'rgba(255, 255, 255, 0.3)'
+              : base.borderColor
+          }]}>
           Made with <Text style={{ color: "#D6524A", fontSize: 22 }}>❣</Text> in India 🇮🇳
         </Text>
       </View>
@@ -130,14 +152,15 @@ const styles = StyleSheet.create({
   footer: {
     fontSize: 20,
     textAlign: 'center',
-    paddingVertical: 20,
+    paddingVertical: 10,
     borderTopWidth: 1,
-    borderTopColor: base.borderColor,
     fontFamily: 'Poppins-Light'
   },
   imageContainer: {
     borderRadius: 10,
     padding: 10,
+    borderWidth: 1,
+    borderColor: base.borderColor
   },
   image: {
     height: 50,
@@ -145,7 +168,7 @@ const styles = StyleSheet.create({
   },
   copyrightText: {
     fontSize: 16,
-    fontFamily: 'Poppins-ExtraLight'
+    fontFamily: 'Poppins-ExtraLight',
   },
   buttonText: {
     textAlign: 'center',
@@ -155,9 +178,9 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: base.accent,
     padding: 20,
-    marginTop: 50,
     minWidth: 120,
-    alignSelf: 'center',
     borderRadius: 20,
+    marginHorizontal: 20,
+    marginVertical: 10
   }
 })

@@ -50,6 +50,7 @@ const CustomStatusBar = ({ hidden }: { hidden: boolean }) => {
 
   return <StatusBar
     hidden={hidden}
+    translucent
     backgroundColor={currentTheme === 'light' ? primary : dark}
     barStyle={
       currentTheme === 'light' ? 'dark-content' : 'light-content'

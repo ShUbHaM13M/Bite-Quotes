@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { QuoteProp } from '../../components/QuoteCard';
 import TagsList from '../../components/TagsList';
 import { Heading } from '../../global/styles';
@@ -19,11 +19,8 @@ const Quotes = ({ navigation, route }: any) => {
 
   const { currentTheme }: any = useTheme();
   const backgroundColor = currentTheme === 'dark'
-    ? quoteColors.dark2
-    : quoteColors.color2
-  const headerColor = currentTheme === 'dark'
-    ? quoteColors.dark
-    : quoteColors.color
+    ? dark
+    : primary
   const textColor = currentTheme === 'dark' ? primary : dark
 
   const [quotes, setQuotes] = useState<Array<QuoteProp>>([])
@@ -81,53 +78,53 @@ const Quotes = ({ navigation, route }: any) => {
       }}>
         <View style={{
           elevation: 2,
-          backgroundColor: headerColor,
+          backgroundColor,
           width: '100%',
           flex: loading ? 1 : 0,
           justifyContent: 'center'
         }} >
           <Heading
             size={30}
-            marginTop={20}
+            marginTop={40}
             textCenter
             color={textColor}
-            marginBottom={20}>Quotes</Heading>
+            marginBottom={10}>Quotes</Heading>
         </View>
         {!loading && quotes &&
           <View style={{
             flex: 1,
-            alignSelf: 'stretch',
+            width: '100%',
             alignItems: 'center',
+            justifyContent: 'flex-start',
           }}>
             <View style={{
               marginTop: 20,
               paddingHorizontal: 10,
-              alignSelf: 'stretch'
+              alignSelf: 'stretch',
             }}>
               <TagsList
                 navigation={navigation}
                 tags={tags || []} />
             </View>
-            <TinderSwipe
-              setTags={setTags}
-              backgroundColor={backgroundColor}
-              render={showCards}
-              toggleRender={setShowCards}
-              data={quotes}
-              fetchMore={fetchMore} />
+            <View style={{
+              width: '100%',
+              flex: 1,
+              marginBottom: 20,
+              alignItems: 'stretch',
+              backgroundColor: 'red',
+            }}>
+              <TinderSwipe
+                setTags={setTags}
+                backgroundColor={backgroundColor}
+                render={showCards}
+                toggleRender={setShowCards}
+                data={quotes}
+                fetchMore={fetchMore} />
+            </View>
           </View>
         }
         {loading &&
-          <View style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            height: '100%',
-            width: '100%',
-            backgroundColor: 'red'
-          }}>
+          <View style={styles.loadingContainer}>
             <ActivityIndicator size='large' color={base.accent} />
           </View>
         }
@@ -135,5 +132,18 @@ const Quotes = ({ navigation, route }: any) => {
     </SavedQuotesProvider>
   );
 };
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'red'
+  }
+})
 
 export default Quotes;
